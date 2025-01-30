@@ -16,9 +16,9 @@ if runScript then
     textLabel.Font = Enum.Font.SourceSans
     textLabel.TextSize = 50
     textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Position = UDim2.new(0.5, -100, 0.5, -25)  -- Điều chỉnh vị trí để hiển thị ở giữa màn hình
+    textLabel.Position = UDim2.new(0.5, -100, 0.5, -25)
     textLabel.Size = UDim2.new(0, 200, 0, 50)
-    textLabel.BackgroundTransparency = 1  -- Làm trong suốt nền của TextLabel
+    textLabel.BackgroundTransparency = 1
 
     print("khangbells run")
 else
