@@ -1,28 +1,47 @@
 local runScript = true
+local player = game.Players.LocalPlayer
+local screenGui = Instance.new("ScreenGui")
+local frame = Instance.new("Frame")
+local textLabel = Instance.new("TextLabel")
+local closeButton = Instance.new("TextButton")
+
+screenGui.Parent = player.PlayerGui
+screenGui.Name = "ScriptNotification"
+
+frame.Parent = screenGui
+frame.Size = UDim2.new(0, 300, 0, 100)
+frame.Position = UDim2.new(0.5, -150, 0.5, -50)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+
+textLabel.Parent = frame
+textLabel.Size = UDim2.new(1, 0, 0.8, 0)
+textLabel.Position = UDim2.new(0, 0, 0, 0)
+textLabel.BackgroundTransparency = 1
+textLabel.Text = "khangbells run"
+textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+textLabel.TextScaled = true
+
+closeButton.Parent = frame
+closeButton.Size = UDim2.new(0, 40, 0, 30)
+closeButton.Position = UDim2.new(1, -45, 0, 10)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextScaled = true
+
+closeButton.MouseButton1Click:Connect(function()
+    screenGui:Destroy()
+end)
 
 function toggleScript()
     runScript = not runScript
 end
 
 if runScript then
-    -- Tạo TextLabel để hiển thị "hi khangbells"
-    local player = game.Players.LocalPlayer
-    local screenGui = Instance.new("ScreenGui")
-    screenGui.Parent = player.PlayerGui
-
-    local textLabel = Instance.new("TextLabel")
-    textLabel.Parent = screenGui
-    textLabel.Text = "hi khangbells"
-    textLabel.Font = Enum.Font.SourceSans
-    textLabel.TextSize = 50
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.Position = UDim2.new(0.5, -100, 0.5, -25)
-    textLabel.Size = UDim2.new(0, 200, 0, 50)
-    textLabel.BackgroundTransparency = 1
-
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
     print("khangbells run")
 else
-    game.Players.LocalPlayer:Kick("khangbells script by sonbui offline")
+    player:Kick("khangbells script by sonbui offline")
 end
 
 toggleScript()
