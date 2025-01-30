@@ -1,47 +1,62 @@
-local runScript = true
+local runScript = false  -- Mặc định là chưa chạy script
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local textLabel = Instance.new("TextLabel")
-local closeButton = Instance.new("TextButton")
+local okButton = Instance.new("TextButton")
+local textBox = Instance.new("TextBox")
 
 screenGui.Parent = player.PlayerGui
 screenGui.Name = "ScriptNotification"
 
 frame.Parent = screenGui
-frame.Size = UDim2.new(0, 300, 0, 100)
-frame.Position = UDim2.new(0.5, -150, 0.5, -50)
-frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+frame.Size = UDim2.new(0, 400, 0, 200)
+frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- Màu nền trắng
 
 textLabel.Parent = frame
-textLabel.Size = UDim2.new(1, 0, 0.8, 0)
+textLabel.Size = UDim2.new(1, 0, 0.5, 0)
 textLabel.Position = UDim2.new(0, 0, 0, 0)
 textLabel.BackgroundTransparency = 1
 textLabel.Text = "khangbells run"
-textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Màu chữ đen
 textLabel.TextScaled = true
+textLabel.TextSize = 36  -- Chữ lớn và đậm
+textLabel.TextFont = Enum.Font.SourceSansBold  -- Font đậm
 
-closeButton.Parent = frame
-closeButton.Size = UDim2.new(0, 40, 0, 30)
-closeButton.Position = UDim2.new(1, -45, 0, 10)
-closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-closeButton.Text = "X"
-closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-closeButton.TextScaled = true
+-- TextBox nhỏ để người dùng có thể nhập gì đó nếu muốn
+textBox.Parent = frame
+textBox.Size = UDim2.new(0, 300, 0, 30)
+textBox.Position = UDim2.new(0.5, -150, 0.6, 0)
+textBox.BackgroundColor3 = Color3.fromRGB(240, 240, 240)  -- Màu nền của TextBox
+textBox.Text = ""
+textBox.PlaceholderText = "Nhập gì đó nếu muốn..."  -- Dòng chữ hướng dẫn
+textBox.TextSize = 18
+textBox.ClearTextOnFocus = false
 
-closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
+okButton.Parent = frame
+okButton.Size = UDim2.new(0, 80, 0, 40)
+okButton.Position = UDim2.new(0.5, -40, 0.8, 0)
+okButton.BackgroundColor3 = Color3.fromRGB(0, 128, 0)  -- Màu nền xanh
+okButton.Text = "OK"
+okButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Màu chữ trắng
+okButton.TextScaled = true
+
+okButton.MouseButton1Click:Connect(function()
+    if textBox.Text ~= "" then
+        print("User input: " .. textBox.Text)  -- In nội dung nhập vào từ TextBox
+    end
+    screenGui:Destroy()  -- Đóng thông báo khi nhấn OK
+    runScript = true  -- Kích hoạt script khi nhấn OK
 end)
 
 function toggleScript()
-    runScript = not runScript
-end
-
-if runScript then
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
-    print("khangbells run")
-else
-    player:Kick("khangbells script by sonbui offline")
+    if runScript then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
+        print("khangbells run")
+    else
+        player:Kick("khangbells script by sonbui offline")
+    end
 end
 
 toggleScript()
