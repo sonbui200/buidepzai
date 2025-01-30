@@ -1,4 +1,4 @@
-local runScript = true
+local runScript = false
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -13,7 +13,7 @@ screenGui.Name = "ScriptNotification"
 imageLabel.Parent = screenGui
 imageLabel.Size = UDim2.new(1, 0, 1, 0)
 imageLabel.Position = UDim2.new(0, 0, 0, 0)
-imageLabel.Image = "rbxassetid://YOUR_IMAGE_ID"
+imageLabel.Image = "rbxassetid://95719151211731"
 imageLabel.ImageTransparency = 0
 
 frame.Parent = screenGui
@@ -59,8 +59,6 @@ function toggleScript()
     if runScript then
         print("khangbells script is running")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
-    else
-        player:Kick("khangbells script by sonbui offline")
     end
 end
 
