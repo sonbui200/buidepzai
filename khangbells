@@ -1,0 +1,14 @@
+local runScript = false
+
+function toggleScript()
+    runScript = not runScript
+end
+
+if runScript then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/LumosSera/Serra/refs/heads/main/Fish.lua"))()
+    print("khangbells run")
+else
+    game.Players.LocalPlayer:Kick("khangbells script by sonbui offline")
+end
+
+toggleScript()
