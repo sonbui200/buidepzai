@@ -1,4 +1,4 @@
-local runScript = true
+local runScript = false
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -57,11 +57,16 @@ end)
 
 function toggleScript()
     if runScript then
+        print("khangbells script is running")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
-        print("khangbells run")
     else
         player:Kick("khangbells script by sonbui offline")
     end
+end
+
+-- Đảm bảo toggleScript chỉ gọi khi runScript là true
+while not runScript do
+    wait(0.1)
 end
 
 toggleScript()
