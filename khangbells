@@ -1,4 +1,4 @@
-local runScript = false
+local runScript = true
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
