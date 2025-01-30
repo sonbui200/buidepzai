@@ -1,4 +1,4 @@
-local runScript = false  -- Mặc định là chưa chạy script
+local runScript = true  -- Mặc định là chưa chạy script
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -52,7 +52,7 @@ okButton.TextScaled = true
 
 okButton.MouseButton1Click:Connect(function()
     if textBox.Text ~= "" then
-        print("User input: " .. textBox.Text)  -- In nội dung nhập vào từ TextBox
+        print("User input: " .. textBox.Text)  
     end
     screenGui:Destroy()  -- Đóng thông báo khi nhấn OK
     runScript = true  -- Kích hoạt script khi nhấn OK
