@@ -1,61 +1,59 @@
-local runScript = true  -- Mặc định là chưa chạy script
+local runScript = true
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local textLabel = Instance.new("TextLabel")
 local okButton = Instance.new("TextButton")
 local textBox = Instance.new("TextBox")
-local imageLabel = Instance.new("ImageLabel") -- Thêm ảnh nền
+local imageLabel = Instance.new("ImageLabel")
 
 screenGui.Parent = player.PlayerGui
 screenGui.Name = "ScriptNotification"
 
--- Ảnh nền
 imageLabel.Parent = screenGui
-imageLabel.Size = UDim2.new(1, 0, 1, 0) -- Kích thước full màn hình
+imageLabel.Size = UDim2.new(1, 0, 1, 0)
 imageLabel.Position = UDim2.new(0, 0, 0, 0)
-imageLabel.Image = "rbxassetid://95719151211731" -- Thay YOUR_IMAGE_ID bằng ID ảnh đã tải lên Roblox
-imageLabel.ImageTransparency = 0  -- Không làm mờ ảnh
+imageLabel.Image = "rbxassetid://YOUR_IMAGE_ID"
+imageLabel.ImageTransparency = 0
 
 frame.Parent = screenGui
 frame.Size = UDim2.new(0, 400, 0, 200)
 frame.Position = UDim2.new(0.5, -200, 0.5, -100)
-frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)  -- Màu nền trắng
+frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 
 textLabel.Parent = frame
 textLabel.Size = UDim2.new(1, 0, 0.5, 0)
 textLabel.Position = UDim2.new(0, 0, 0, 0)
 textLabel.BackgroundTransparency = 1
 textLabel.Text = "khangbells run"
-textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)  -- Màu chữ đen
+textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 textLabel.TextScaled = true
-textLabel.TextSize = 36  -- Chữ lớn và đậm
-textLabel.TextFont = Enum.Font.SourceSansBold  -- Font đậm
+textLabel.TextSize = 36
+textLabel.TextFont = Enum.Font.SourceSansBold
 
--- TextBox nhỏ để người dùng có thể nhập gì đó nếu muốn
 textBox.Parent = frame
 textBox.Size = UDim2.new(0, 300, 0, 30)
 textBox.Position = UDim2.new(0.5, -150, 0.6, 0)
-textBox.BackgroundColor3 = Color3.fromRGB(240, 240, 240)  -- Màu nền của TextBox
+textBox.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
 textBox.Text = ""
-textBox.PlaceholderText = "Nhập gì đó nếu muốn..."  -- Dòng chữ hướng dẫn
+textBox.PlaceholderText = "Nhập gì đó nếu muốn..."
 textBox.TextSize = 18
 textBox.ClearTextOnFocus = false
 
 okButton.Parent = frame
 okButton.Size = UDim2.new(0, 80, 0, 40)
 okButton.Position = UDim2.new(0.5, -40, 0.8, 0)
-okButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)  -- Màu nền đỏ
-okButton.Text = "OK"
-okButton.TextColor3 = Color3.fromRGB(255, 255, 255)  -- Màu chữ trắng
+okButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+okButton.Text = "X"
+okButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 okButton.TextScaled = true
 
 okButton.MouseButton1Click:Connect(function()
     if textBox.Text ~= "" then
-        print("User input: " .. textBox.Text)  
+        print("User input: " .. textBox.Text)
     end
-    screenGui:Destroy()  -- Đóng thông báo khi nhấn OK
-    runScript = true  -- Kích hoạt script khi nhấn OK
+    screenGui:Destroy()
+    runScript = true
 end)
 
 function toggleScript()
