@@ -1,9 +1,9 @@
-local runScript = true
+local runScript = false
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
 local textLabel = Instance.new("TextLabel")
-local okButton = Instance.new("TextButton")
+local closeButton = Instance.new("TextButton")
 local textBox = Instance.new("TextBox")
 local imageLabel = Instance.new("ImageLabel")
 
@@ -29,7 +29,7 @@ textLabel.Text = "khangbells run"
 textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 textLabel.TextScaled = true
 textLabel.TextSize = 36
-textLabel.TextFont = Enum.Font.SourceSansBold
+textLabel.Font = Enum.Font.SourceSansBold
 
 textBox.Parent = frame
 textBox.Size = UDim2.new(0, 300, 0, 30)
@@ -40,18 +40,17 @@ textBox.PlaceholderText = "Nhập gì đó nếu muốn..."
 textBox.TextSize = 18
 textBox.ClearTextOnFocus = false
 
-okButton.Parent = frame
-okButton.Size = UDim2.new(0, 80, 0, 40)
-okButton.Position = UDim2.new(0.5, -40, 0.8, 0)
-okButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-okButton.Text = "X"
-okButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-okButton.TextScaled = true
+closeButton.Parent = frame
+closeButton.Size = UDim2.new(0, 30, 0, 30)
+closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+closeButton.Text = "X"
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.TextScaled = false
+closeButton.TextSize = 14
+closeButton.Font = Enum.Font.SourceSansBold
 
-okButton.MouseButton1Click:Connect(function()
-    if textBox.Text ~= "" then
-        print("User input: " .. textBox.Text)
-    end
+closeButton.MouseButton1Click:Connect(function()
     screenGui:Destroy()
     runScript = true
 end)
