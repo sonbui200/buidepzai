@@ -15,11 +15,12 @@ local enteredKey = nil  -- Biến để lưu key đã nhập
 screenGui.Parent = player.PlayerGui
 screenGui.Name = "ScriptNotification"
 
+-- Tạo ImageLabel để hiển thị ảnh nền
 imageLabel.Parent = screenGui
-imageLabel.Size = UDim2.new(1, 0, 1, 0)
+imageLabel.Size = UDim2.new(1, 0, 1, 0)  -- Kích thước ảnh phủ toàn bộ màn hình
 imageLabel.Position = UDim2.new(0, 0, 0, 0)
 imageLabel.Image = "rbxassetid://95719151211731"  -- Đặt ảnh nền của bạn
-imageLabel.ImageTransparency = 0
+imageLabel.ImageTransparency = 0  -- Đảm bảo ảnh không bị mờ
 
 frame.Parent = screenGui
 frame.Size = UDim2.new(0, 400, 0, 250)
@@ -56,7 +57,7 @@ getKeyButton.TextScaled = true
 
 getKeyButton.MouseButton1Click:Connect(function()
     setclipboard("https://discord.gg/yf6XDzUD")  -- Sao chép link key
-    print("join discord to get ket!")
+    print("Key link copied!")
 end)
 
 -- Nút "X" di chuyển xuống cạnh "Get Key"
@@ -64,7 +65,7 @@ closeButton.Parent = frame
 closeButton.Size = UDim2.new(0, 30, 0, 30)
 closeButton.Position = UDim2.new(0.5, 90, 0.8, 0)  -- Di chuyển nút "X" xuống cạnh "Get Key"
 closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-closeButton.Text = "check key"
+closeButton.Text = "X"
 closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 closeButton.TextScaled = false
 closeButton.TextSize = 14
@@ -79,7 +80,7 @@ closeButton.MouseButton1Click:Connect(function()
     else
         attempts = attempts + 1
         if attempts >= maxAttempts then
-            player:Kick("not good key get new key")
+            player:Kick("key get new key")
         else
             textLabel.Text = "Wrong key! Attempts left: " .. (maxAttempts - attempts)
         end
