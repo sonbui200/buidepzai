@@ -1,7 +1,7 @@
 local correctKey = "khangbellsNIGGA"  -- Key mới
 local maxAttempts = 2
 local attempts = 0
-local runScript = false  -- Đảm bảo rằng script chỉ chạy khi `runScript` là true
+local runScript = true  -- Đảm bảo rằng script chỉ chạy khi `runScript` là true
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -95,7 +95,7 @@ else
     function toggleScript()
         if runScript then
             print("khangbells script is running")
-            loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
+            loadstring(game:HttpGet(('https://raw.githubusercontent.com/DarkFusionSSS/SHIRO-X-BLUE-LOCK-SIGMA/refs/heads/main/Protected_3467848847610666.txt')))()
         end
     end
 
