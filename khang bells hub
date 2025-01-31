@@ -15,7 +15,7 @@ mainFrame.Parent = screenGui
 local titleLabel = Instance.new("TextLabel")
 titleLabel.Size = UDim2.new(1, 0, 0.1, 0) -- Kích thước tiêu đề
 titleLabel.Position = UDim2.new(0, 0, 0, 0) -- Vị trí tiêu đề
-titleLabel.Text = "Thao Hub | Blue Lock Rivals" -- Nội dung tiêu đề
+titleLabel.Text = "Thao Hub | Blue Lock Rivals By Nguyen Thai Bao" -- Nội dung tiêu đề
 titleLabel.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
 titleLabel.BackgroundTransparency = 1 -- Nền trong suốt
 titleLabel.Font = Enum.Font.SourceSansBold -- Font chữ
@@ -24,7 +24,7 @@ titleLabel.Parent = mainFrame
 
 -- Tạo ScrollingFrame (Khung cuộn cho các nút)
 local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, 0, 0.9, 0) -- Kích thước khung cuộn
+scrollingFrame.Size = UDim2.new(1, 0, 0.8, 0) -- Kích thước khung cuộn
 scrollingFrame.Position = UDim2.new(0, 0, 0.1, 0) -- Vị trí khung cuộn
 scrollingFrame.BackgroundTransparency = 1 -- Nền trong suốt
 scrollingFrame.ScrollBarThickness = 5 -- Độ dày thanh cuộn
@@ -41,13 +41,18 @@ local buttons = {
     { Name = "Lock Ball", Function = function() print("Lock Ball activated!") end },
     { Name = "Teleport Ball", Function = function() print("Teleport Ball activated!") end },
     { Name = "Auto Goal", Function = function() print("Auto Goal activated!") end },
-    { Name = "Auto Awakening", Function = function() print("Auto Awakening activated!") end }
+    { Name = "Auto Awakening", Function = function() print("Auto Awakening activated!") end },
+    { Name = "Function 6", Function = function() print("Function 6 activated!") end },
+    { Name = "Function 7", Function = function() print("Function 7 activated!") end },
+    { Name = "Function 8", Function = function() print("Function 8 activated!") end },
+    { Name = "Function 9", Function = function() print("Function 9 activated!") end },
+    { Name = "Function 10", Function = function() print("Function 10 activated!") end }
 }
 
 -- Tạo các nút
 for _, buttonInfo in pairs(buttons) do
     local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0.9, 0, 0.1, 0) -- Kích thước nút
+    button.Size = UDim2.new(0.9, 0, 0, 40) -- Kích thước nút (chiều cao cố định)
     button.Position = UDim2.new(0.05, 0, 0, 0) -- Vị trí nút
     button.Text = buttonInfo.Name -- Tên nút
     button.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
@@ -61,7 +66,9 @@ for _, buttonInfo in pairs(buttons) do
 end
 
 -- Cập nhật kích thước ScrollingFrame để chứa tất cả các nút
-scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+end)
 
 -- Tạo ImageButton (Logo)
 local logoButton = Instance.new("ImageButton")
