@@ -62,3 +62,23 @@ end
 
 -- Cập nhật kích thước ScrollingFrame để chứa tất cả các nút
 scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+
+-- Tạo ImageButton (Logo)
+local logoButton = Instance.new("ImageButton")
+logoButton.Size = UDim2.new(0.1, 0, 0.1, 0) -- Kích thước logo
+logoButton.Position = UDim2.new(0.45, 0, 0.05, 0) -- Vị trí logo
+logoButton.BackgroundTransparency = 1 -- Nền trong suốt
+logoButton.Image = "rbxassetid://99338429415881" -- Sử dụng Asset ID của bạn
+logoButton.Parent = screenGui
+
+-- Biến để kiểm tra trạng thái menu
+local isMenuVisible = true
+
+-- Hàm ẩn/hiện menu
+local function toggleMenu()
+    isMenuVisible = not isMenuVisible
+    mainFrame.Visible = isMenuVisible
+end
+
+-- Kết nối sự kiện nhấp vào logo
+logoButton.MouseButton1Click:Connect(toggleMenu)
