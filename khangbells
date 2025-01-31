@@ -7,7 +7,7 @@ if isScriptEnabled then
     end
 
     local function runScript2()
-        loadstring(game:HttpGet('https://pastebin.com/raw/8zV0rWyD'))()
+        loadstring(game:HttpGet('https://pastebin.com/raw/2ab7vpcu'))()
     end
 
     -- Chạy cả hai script cùng lúc
