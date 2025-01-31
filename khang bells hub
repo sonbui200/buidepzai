@@ -1,49 +1,42 @@
-local scripts = {
-    {name = "Script 1", action = function() print("Script 1 activated!") end},
-    {name = "Script 2", action = function() print("Script 2 activated!") end},
-    {name = "Script 3", action = function() print("Script 3 activated!") end}
-}
+-- Tạo ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local selected = 1
-local showMenu = true
+-- Tạo Frame (Menu)
+local menuFrame = Instance.new("Frame")
+menuFrame.Size = UDim2.new(0.3, 0, 0.4, 0) -- Kích thước menu
+menuFrame.Position = UDim2.new(0.35, 0, 0.3, 0) -- Vị trí menu
+menuFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Màu nền đen
+menuFrame.BorderSizePixel = 0 -- Ẩn viền
+menuFrame.Visible = true -- Hiển thị menu ban đầu
+menuFrame.Parent = screenGui
 
-function centerText(text)
-    local width = 50
-    local padding = math.floor((width - #text) / 2)
-    return string.rep(" ", padding) .. text
+-- Tạo TextLabel (Chữ trong menu)
+local menuText = Instance.new("TextLabel")
+menuText.Size = UDim2.new(1, 0, 1, 0) -- Chiếm toàn bộ Frame
+menuText.Text = "Đây là menu" -- Nội dung chữ
+menuText.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
+menuText.BackgroundTransparency = 1 -- Nền trong suốt
+menuText.Font = Enum.Font.SourceSans -- Font chữ
+menuText.TextSize = 24 -- Kích thước chữ
+menuText.Parent = menuFrame
+
+-- Tạo ImageButton (Logo)
+local logoButton = Instance.new("ImageButton")
+logoButton.Size = UDim2.new(0.1, 0, 0.1, 0) -- Kích thước logo
+logoButton.Position = UDim2.new(0.45, 0, 0.05, 0) -- Vị trí logo
+logoButton.BackgroundTransparency = 1 -- Nền trong suốt
+logoButton.Image = "rbxassetid://1234567890" -- Thay bằng ID hình ảnh logo của bạn
+logoButton.Parent = screenGui
+
+-- Biến để kiểm tra trạng thái menu
+local isMenuVisible = true
+
+-- Hàm ẩn/hiện menu
+local function toggleMenu()
+    isMenuVisible = not isMenuVisible
+    menuFrame.Visible = isMenuVisible
 end
 
-function drawMenu()
-    os.execute("cls") -- Xóa màn hình (Windows), nếu Linux dùng "clear"
-    if not showMenu then
-        print(centerText("[ MENU ]"))
-        print("Press '-' to toggle menu")
-        return
-    end
-    print(centerText("======================="))
-    print(centerText("      SCRIPT MENU      "))
-    print(centerText("======================="))
-    for i, script in ipairs(scripts) do
-        if i == selected then
-            print(centerText("[>] " .. script.name)) -- Hiển thị mục được chọn
-        else
-            print(centerText("    " .. script.name))
-        end
-    end
-    print(centerText("======================="))
-    print(centerText("Use W/S to navigate, Enter to activate, '-' to toggle menu"))
-end
-
-while true do
-    drawMenu()
-    local key = io.read()
-    if key == "w" then
-        selected = math.max(1, selected - 1)
-    elseif key == "s" then
-        selected = math.min(#scripts, selected + 1)
-    elseif key == "" then -- Nhấn Enter
-        scripts[selected].action()
-    elseif key == "-" then
-        showMenu = not showMenu
-    end
-end
+-- Kết nối sự kiện nhấp vào logo
+logoButton.MouseButton1Click:Connect(toggleMenu)
