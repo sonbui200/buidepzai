@@ -1,0 +1,49 @@
+local scripts = {
+    {name = "Script 1", action = function() print("Script 1 activated!") end},
+    {name = "Script 2", action = function() print("Script 2 activated!") end},
+    {name = "Script 3", action = function() print("Script 3 activated!") end}
+}
+
+local selected = 1
+local showMenu = true
+
+function centerText(text)
+    local width = 50
+    local padding = math.floor((width - #text) / 2)
+    return string.rep(" ", padding) .. text
+end
+
+function drawMenu()
+    os.execute("cls") -- Xóa màn hình (Windows), nếu Linux dùng "clear"
+    if not showMenu then
+        print(centerText("[ MENU ]"))
+        print("Press '-' to toggle menu")
+        return
+    end
+    print(centerText("======================="))
+    print(centerText("      SCRIPT MENU      "))
+    print(centerText("======================="))
+    for i, script in ipairs(scripts) do
+        if i == selected then
+            print(centerText("[>] " .. script.name)) -- Hiển thị mục được chọn
+        else
+            print(centerText("    " .. script.name))
+        end
+    end
+    print(centerText("======================="))
+    print(centerText("Use W/S to navigate, Enter to activate, '-' to toggle menu"))
+end
+
+while true do
+    drawMenu()
+    local key = io.read()
+    if key == "w" then
+        selected = math.max(1, selected - 1)
+    elseif key == "s" then
+        selected = math.min(#scripts, selected + 1)
+    elseif key == "" then -- Nhấn Enter
+        scripts[selected].action()
+    elseif key == "-" then
+        showMenu = not showMenu
+    end
+end
