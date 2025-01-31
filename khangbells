@@ -1,7 +1,7 @@
-local correctKey = "khangisbells"  -- Key đúng
+local correctKey = "sonbuidepzai"  -- Key đúng
 local maxAttempts = 2
 local attempts = 0
-local runScript = false
+local runScript = false  -- Đảm bảo rằng script chỉ chạy khi `runScript` là true
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
@@ -56,7 +56,7 @@ getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 getKeyButton.TextScaled = true
 
 getKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.gg/yf6XDzUD")  -- Sao chép link key
+    setclipboard("https://your-link-to-get-key.com")  -- Sao chép link key
     print("Key link copied!")
 end)
 
@@ -76,25 +76,28 @@ closeButton.MouseButton1Click:Connect(function()
     if textBox.Text == correctKey then
         enteredKey = correctKey  -- Lưu key nhập vào
         screenGui:Destroy()
-        runScript = true
+        runScript = true  -- Đặt `runScript` thành true khi key đúng
     else
         attempts = attempts + 1
         if attempts >= maxAttempts then
-            player:Kick("key get new key")
+            player:Kick("not good key get new key")
         else
             textLabel.Text = "Wrong key! Attempts left: " .. (maxAttempts - attempts)
         end
     end
 end)
 
+-- Hàm để chạy script chỉ khi `runScript` là true
 function toggleScript()
     if runScript then
         print("khangbells script is running")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals"))()
+    else
+        print("Script không chạy vì runScript = false")
     end
 end
 
--- Đảm bảo toggleScript chỉ gọi khi runScript là true
+-- Đảm bảo toggleScript chỉ được gọi khi `runScript` là true
 while not runScript do
     wait(0.1)
 end
