@@ -1,4 +1,4 @@
-local isScriptEnabled = true  -- Đặt giá trị là true để chạy script, false để kick người chơi
+local isScriptEnabled = false
 
 if isScriptEnabled then
     -- Nếu isScriptEnabled là true, chạy script từ URL
