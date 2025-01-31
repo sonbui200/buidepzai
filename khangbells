@@ -1,4 +1,4 @@
-local correctKey = "sonbuidepzai"  -- Key đúng
+local correctKey = "khangbellsNIGGA"  -- Key đúng
 local maxAttempts = 2
 local attempts = 0
 local runScript = false  -- Đảm bảo rằng script chỉ chạy khi `runScript` là true
