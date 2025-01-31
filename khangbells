@@ -1,4 +1,4 @@
-local correctKey = "buidepzai"
+local correctKey = "sonbuidepzai"  -- Key đúng
 local maxAttempts = 2
 local attempts = 0
 local runScript = false
@@ -10,6 +10,7 @@ local closeButton = Instance.new("TextButton")
 local textBox = Instance.new("TextBox")
 local imageLabel = Instance.new("ImageLabel")
 local getKeyButton = Instance.new("TextButton")
+local enteredKey = nil  -- Biến để lưu key đã nhập
 
 screenGui.Parent = player.PlayerGui
 screenGui.Name = "ScriptNotification"
@@ -44,9 +45,24 @@ textBox.PlaceholderText = "Enter the key here"
 textBox.TextSize = 18
 textBox.ClearTextOnFocus = false
 
+-- Nút "Get Key" (Sao chép link key)
+getKeyButton.Parent = frame
+getKeyButton.Size = UDim2.new(0, 80, 0, 40)
+getKeyButton.Position = UDim2.new(0.5, -40, 0.8, 0)
+getKeyButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+getKeyButton.Text = "Put Key Here"
+getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+getKeyButton.TextScaled = true
+
+getKeyButton.MouseButton1Click:Connect(function()
+    setclipboard("https://your-link-to-get-key.com")  -- Sao chép link key
+    print("Key link copied!")
+end)
+
+-- Nút "X" di chuyển xuống cạnh "Get Key"
 closeButton.Parent = frame
 closeButton.Size = UDim2.new(0, 30, 0, 30)
-closeButton.Position = UDim2.new(1, -35, 0, 5)
+closeButton.Position = UDim2.new(0.5, 90, 0.8, 0)  -- Di chuyển nút "X" xuống cạnh "Get Key"
 closeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
 closeButton.Text = "X"
 closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -54,27 +70,16 @@ closeButton.TextScaled = false
 closeButton.TextSize = 14
 closeButton.Font = Enum.Font.SourceSansBold
 
-getKeyButton.Parent = frame
-getKeyButton.Size = UDim2.new(0, 80, 0, 40)
-getKeyButton.Position = UDim2.new(0.5, -40, 0.8, 0)
-getKeyButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
-getKeyButton.Text = "Get Key"
-getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
-getKeyButton.TextScaled = true
-
-getKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://discord.gg/eeCJQKgJ")  -- Sao chép link key
-    print("Key link copied!")
-end)
-
 closeButton.MouseButton1Click:Connect(function()
+    -- Kiểm tra nếu key đúng
     if textBox.Text == correctKey then
+        enteredKey = correctKey  -- Lưu key nhập vào
         screenGui:Destroy()
         runScript = true
     else
         attempts = attempts + 1
         if attempts >= maxAttempts then
-            player:Kick(" key get new key")
+            player:Kick("not good key get new key")
         else
             textLabel.Text = "Wrong key! Attempts left: " .. (maxAttempts - attempts)
         end
