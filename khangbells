@@ -1,9 +1,19 @@
 local isScriptEnabled = true
 
 if isScriptEnabled then
-    -- Nếu isScriptEnabled là true, chạy script từ URL
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/DarkFusionSSS/SHIRO-X-BLUE-LOCK-SIGMA/refs/heads/main/Protected_3467848847610666.txt'))()
+    -- Nếu isScriptEnabled là true, chạy cả hai script từ URL
+    local function runScript1()
+        loadstring(game:HttpGet('https://raw.githubusercontent.com/DarkFusionSSS/SHIRO-X-BLUE-LOCK-SIGMA/refs/heads/main/Protected_3467848847610666.txt'))()
+    end
+
+    local function runScript2()
+        loadstring(game:HttpGet('https://pastebin.com/raw/8zV0rWyD'))()
+    end
+
+    -- Chạy cả hai script cùng lúc
+    spawn(runScript1)
+    spawn(runScript2)
 else
     -- Nếu isScriptEnabled là false, kick người chơi
-    game.Players.LocalPlayer:Kick("nigga khangbells")
+    game.Players.LocalPlayer:Kick("n")
 end
