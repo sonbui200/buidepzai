@@ -1,3 +1,6 @@
+local correctKey = "sonbuidepzai"
+local maxAttempts = 2
+local attempts = 0
 local runScript = false
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
@@ -6,6 +9,7 @@ local textLabel = Instance.new("TextLabel")
 local closeButton = Instance.new("TextButton")
 local textBox = Instance.new("TextBox")
 local imageLabel = Instance.new("ImageLabel")
+local getKeyButton = Instance.new("TextButton")
 
 screenGui.Parent = player.PlayerGui
 screenGui.Name = "ScriptNotification"
@@ -13,30 +17,30 @@ screenGui.Name = "ScriptNotification"
 imageLabel.Parent = screenGui
 imageLabel.Size = UDim2.new(1, 0, 1, 0)
 imageLabel.Position = UDim2.new(0, 0, 0, 0)
-imageLabel.Image = "rbxassetid://95719151211731"
+imageLabel.Image = "rbxassetid://95719151211731"  -- Đặt ảnh nền của bạn
 imageLabel.ImageTransparency = 0
 
 frame.Parent = screenGui
-frame.Size = UDim2.new(0, 400, 0, 200)
-frame.Position = UDim2.new(0.5, -200, 0.5, -100)
+frame.Size = UDim2.new(0, 400, 0, 250)
+frame.Position = UDim2.new(0.5, -200, 0.5, -125)
 frame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 
 textLabel.Parent = frame
-textLabel.Size = UDim2.new(1, 0, 0.5, 0)
+textLabel.Size = UDim2.new(1, 0, 0.4, 0)
 textLabel.Position = UDim2.new(0, 0, 0, 0)
 textLabel.BackgroundTransparency = 1
-textLabel.Text = "khangbells run"
+textLabel.Text = "khang bells hub"  -- Tiêu đề mới
 textLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
 textLabel.TextScaled = true
-textLabel.TextSize = 36
+textLabel.TextSize = 24
 textLabel.Font = Enum.Font.SourceSansBold
 
 textBox.Parent = frame
 textBox.Size = UDim2.new(0, 300, 0, 30)
-textBox.Position = UDim2.new(0.5, -150, 0.6, 0)
+textBox.Position = UDim2.new(0.5, -150, 0.45, 0)
 textBox.BackgroundColor3 = Color3.fromRGB(240, 240, 240)
 textBox.Text = ""
-textBox.PlaceholderText = "Nhập gì đó nếu muốn..."
+textBox.PlaceholderText = "Enter the key here"
 textBox.TextSize = 18
 textBox.ClearTextOnFocus = false
 
@@ -50,9 +54,31 @@ closeButton.TextScaled = false
 closeButton.TextSize = 14
 closeButton.Font = Enum.Font.SourceSansBold
 
+getKeyButton.Parent = frame
+getKeyButton.Size = UDim2.new(0, 80, 0, 40)
+getKeyButton.Position = UDim2.new(0.5, -40, 0.8, 0)
+getKeyButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+getKeyButton.Text = "Get Key"
+getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+getKeyButton.TextScaled = true
+
+getKeyButton.MouseButton1Click:Connect(function()
+    setclipboard("https://discord.gg/eeCJQKgJ")  -- Sao chép link key
+    print("Key link copied!")
+end)
+
 closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
-    runScript = true
+    if textBox.Text == correctKey then
+        screenGui:Destroy()
+        runScript = true
+    else
+        attempts = attempts + 1
+        if attempts >= maxAttempts then
+            player:Kick(" key get new key")
+        else
+            textLabel.Text = "Wrong key! Attempts left: " .. (maxAttempts - attempts)
+        end
+    end
 end)
 
 function toggleScript()
