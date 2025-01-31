@@ -1,4 +1,4 @@
-local correctKey = "sonbuidepzai"  -- Key đúng
+local correctKey = "khangisbells"  -- Key đúng
 local maxAttempts = 2
 local attempts = 0
 local runScript = false
@@ -55,8 +55,8 @@ getKeyButton.TextColor3 = Color3.fromRGB(255, 255, 255)
 getKeyButton.TextScaled = true
 
 getKeyButton.MouseButton1Click:Connect(function()
-    setclipboard("https://your-link-to-get-key.com")  -- Sao chép link key
-    print("Key link copied!")
+    setclipboard("https://discord.gg/yf6XDzUD")  -- Sao chép link key
+    print("join discord to get ket!")
 end)
 
 -- Nút "X" di chuyển xuống cạnh "Get Key"
