@@ -1,7 +1,7 @@
 local correctKey = "khangbellsNIGGA"  -- Key mới
 local maxAttempts = 2
 local attempts = 0
-local runScript = true  -- Đảm bảo rằng script chỉ chạy khi `runScript` là true
+local runScript = true
 local player = game.Players.LocalPlayer
 local screenGui = Instance.new("ScreenGui")
 local frame = Instance.new("Frame")
