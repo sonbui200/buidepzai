@@ -1,4 +1,4 @@
-local isScriptEnabled = true
+local isScriptEnabled = false
 
 if isScriptEnabled then
     -- Nếu isScriptEnabled là true, chạy cả hai script từ URL
