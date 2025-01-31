@@ -2,41 +2,63 @@
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
--- Tạo Frame (Menu)
-local menuFrame = Instance.new("Frame")
-menuFrame.Size = UDim2.new(0.3, 0, 0.4, 0) -- Kích thước menu
-menuFrame.Position = UDim2.new(0.35, 0, 0.3, 0) -- Vị trí menu
-menuFrame.BackgroundColor3 = Color3.new(0, 0, 0) -- Màu nền đen
-menuFrame.BorderSizePixel = 0 -- Ẩn viền
-menuFrame.Visible = true -- Hiển thị menu ban đầu
-menuFrame.Parent = screenGui
+-- Tạo Frame (Menu chính)
+local mainFrame = Instance.new("Frame")
+mainFrame.Size = UDim2.new(0.3, 0, 0.5, 0) -- Kích thước menu
+mainFrame.Position = UDim2.new(0.35, 0, 0.25, 0) -- Vị trí menu
+mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1) -- Màu nền tối
+mainFrame.BorderSizePixel = 0 -- Ẩn viền
+mainFrame.Visible = true -- Hiển thị menu ban đầu
+mainFrame.Parent = screenGui
 
--- Tạo TextLabel (Chữ trong menu)
-local menuText = Instance.new("TextLabel")
-menuText.Size = UDim2.new(1, 0, 1, 0) -- Chiếm toàn bộ Frame
-menuText.Text = "Đây là menu" -- Nội dung chữ
-menuText.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
-menuText.BackgroundTransparency = 1 -- Nền trong suốt
-menuText.Font = Enum.Font.SourceSans -- Font chữ
-menuText.TextSize = 24 -- Kích thước chữ
-menuText.Parent = menuFrame
+-- Tạo TextLabel (Tiêu đề menu)
+local titleLabel = Instance.new("TextLabel")
+titleLabel.Size = UDim2.new(1, 0, 0.1, 0) -- Kích thước tiêu đề
+titleLabel.Position = UDim2.new(0, 0, 0, 0) -- Vị trí tiêu đề
+titleLabel.Text = "Thao Hub | Blue Lock Rivals" -- Nội dung tiêu đề
+titleLabel.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
+titleLabel.BackgroundTransparency = 1 -- Nền trong suốt
+titleLabel.Font = Enum.Font.SourceSansBold -- Font chữ
+titleLabel.TextSize = 20 -- Kích thước chữ
+titleLabel.Parent = mainFrame
 
--- Tạo ImageButton (Logo)
-local logoButton = Instance.new("ImageButton")
-logoButton.Size = UDim2.new(0.1, 0, 0.1, 0) -- Kích thước logo
-logoButton.Position = UDim2.new(0.45, 0, 0.05, 0) -- Vị trí logo
-logoButton.BackgroundTransparency = 1 -- Nền trong suốt
-logoButton.Image = "rbxassetid://1234567890" -- Thay bằng ID hình ảnh logo của bạn
-logoButton.Parent = screenGui
+-- Tạo ScrollingFrame (Khung cuộn cho các nút)
+local scrollingFrame = Instance.new("ScrollingFrame")
+scrollingFrame.Size = UDim2.new(1, 0, 0.9, 0) -- Kích thước khung cuộn
+scrollingFrame.Position = UDim2.new(0, 0, 0.1, 0) -- Vị trí khung cuộn
+scrollingFrame.BackgroundTransparency = 1 -- Nền trong suốt
+scrollingFrame.ScrollBarThickness = 5 -- Độ dày thanh cuộn
+scrollingFrame.Parent = mainFrame
 
--- Biến để kiểm tra trạng thái menu
-local isMenuVisible = true
+-- Tạo UIListLayout (Sắp xếp các nút theo chiều dọc)
+local uiListLayout = Instance.new("UIListLayout")
+uiListLayout.Padding = UDim.new(0, 5) -- Khoảng cách giữa các nút
+uiListLayout.Parent = scrollingFrame
 
--- Hàm ẩn/hiện menu
-local function toggleMenu()
-    isMenuVisible = not isMenuVisible
-    menuFrame.Visible = isMenuVisible
+-- Danh sách các nút và chức năng tương ứng
+local buttons = {
+    { Name = "Inf Stamina", Function = function() print("Inf Stamina activated!") end },
+    { Name = "Lock Ball", Function = function() print("Lock Ball activated!") end },
+    { Name = "Teleport Ball", Function = function() print("Teleport Ball activated!") end },
+    { Name = "Auto Goal", Function = function() print("Auto Goal activated!") end },
+    { Name = "Auto Awakening", Function = function() print("Auto Awakening activated!") end }
+}
+
+-- Tạo các nút
+for _, buttonInfo in pairs(buttons) do
+    local button = Instance.new("TextButton")
+    button.Size = UDim2.new(0.9, 0, 0.1, 0) -- Kích thước nút
+    button.Position = UDim2.new(0.05, 0, 0, 0) -- Vị trí nút
+    button.Text = buttonInfo.Name -- Tên nút
+    button.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
+    button.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2) -- Màu nền nút
+    button.Font = Enum.Font.SourceSans -- Font chữ
+    button.TextSize = 18 -- Kích thước chữ
+    button.Parent = scrollingFrame
+
+    -- Kết nối sự kiện nhấp vào nút
+    button.MouseButton1Click:Connect(buttonInfo.Function)
 end
 
--- Kết nối sự kiện nhấp vào logo
-logoButton.MouseButton1Click:Connect(toggleMenu)
+-- Cập nhật kích thước ScrollingFrame để chứa tất cả các nút
+scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
