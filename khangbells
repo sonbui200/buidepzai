@@ -33,7 +33,7 @@ else
     local placeId = game.PlaceId
     if Games[placeId] then
         -- Hiển thị thông báo khi script chạy và sau đó chạy script
-        showMessage("script khangbells run now", 7)
+        showMessage("script khangbells run now", 3)
         loadstring(game:HttpGet(Games[placeId]))()
     else
         -- Hiển thị thông báo nếu game không được hỗ trợ
