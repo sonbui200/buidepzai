@@ -1,4 +1,4 @@
-local RunScripts = true  -- Đặt thành false nếu bạn muốn tắt tất cả script
+local RunScripts = false  -- Đặt thành true để chạy script, false để tắt
 
 local Games = {
   [2753915549] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 1
@@ -13,7 +13,6 @@ local Games = {
   [16732694052] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Fisch.lua", -- Fisch
 }
 
--- Kiểm tra biến RunScripts để quyết định có chạy script không
 if RunScripts then
   local gameId = game.PlaceId
   local scriptUrl = Games[gameId]
@@ -24,7 +23,27 @@ if RunScripts then
     print("Không có script cho game này.")
   end
 else
-  print("Tất cả các script đã bị tắt.")
+  -- Tạo giao diện thông báo "script off"
+  local player = game.Players.LocalPlayer
+  local screenGui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+  local frame = Instance.new("Frame", screenGui)
+  frame.Size = UDim2.new(0.4, 0, 0.2, 0)
+  frame.Position = UDim2.new(0.3, 0, 0.4, 0)
+  frame.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+  frame.BackgroundTransparency = 0.5
+  frame.BorderSizePixel = 2
+  frame.BorderColor3 = Color3.fromRGB(255, 0, 0)
+
+  local textLabel = Instance.new("TextLabel", frame)
+  textLabel.Size = UDim2.new(1, 0, 1, 0)
+  textLabel.Text = "SCRIPT OFF"
+  textLabel.TextColor3 = Color3.fromRGB(255, 0, 0)
+  textLabel.TextScaled = true
+  textLabel.BackgroundTransparency = 1
+
+  -- Đợi 5 giây và kick người chơi
+  wait(5)
+  player:Kick("script khangbells off")
 end
 
 return Games
