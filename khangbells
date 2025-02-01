@@ -1,7 +1,7 @@
 local scriptEnabled = true  -- Đặt thành false nếu muốn tắt script
 
 local Games = {
-  [17625359962] = "https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals", -- rival
+  [17625359962] = "https://api.luarmor.net/files/v3/loaders/47fc2ea07fef3d78fb68ca87ab2b7503.lua", -- rival
 }
 
 local Players = game:GetService("Players")
