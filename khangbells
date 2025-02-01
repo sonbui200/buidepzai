@@ -1,19 +1,30 @@
-local isScriptEnabled = true
+local RunScripts = true  -- Đặt thành false nếu bạn muốn tắt tất cả script
 
-if isScriptEnabled then
-    -- Nếu isScriptEnabled là true, chạy cả hai script từ URL
-    local function runScript1()
-        loadstring(game:HttpGet('https://raw.githubusercontent.com/DarkFusionSSS/SHIRO-X-BLUE-LOCK-SIGMA/refs/heads/main/Protected_3467848847610666.txt'))()
-    end
+local Games = {
+  [2753915549] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 1
+  [4442272183] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 2
+  [7449423635] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 3
+  [3623096087] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Muscle%20Legends.lua", -- Muscle Legends
+  [8737899170] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 1
+  [16498369169] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 2
+  [17503543197] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 3
+  [10449761463] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/The%20Strongest%20Battleground.lua",  -- The Strongest Battlegrounds
+  [18901165922] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Pet%20GO.lua", -- Pet GO
+  [16732694052] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Fisch.lua", -- Fisch
+}
 
-    local function runScript2()
-        loadstring(game:HttpGet(''))()
-    end
+-- Kiểm tra biến RunScripts để quyết định có chạy script không
+if RunScripts then
+  local gameId = game.PlaceId
+  local scriptUrl = Games[gameId]
 
-    -- Chạy cả hai script cùng lúc
-    spawn(runScript1)
-    spawn(runScript2)
+  if scriptUrl then
+    loadstring(game:HttpGet(scriptUrl))()
+  else
+    print("Không có script cho game này.")
+  end
 else
-    -- Nếu isScriptEnabled là false, kick người chơi
-    game.Players.LocalPlayer:Kick("nigga khangbells")
+  print("Tất cả các script đã bị tắt.")
 end
+
+return Games
