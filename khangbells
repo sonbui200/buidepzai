@@ -1,37 +1,43 @@
 local scriptEnabled = true  -- Đặt thành false nếu muốn tắt script
 
 local Games = {
-  [2753915549] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 1
-  [4442272183] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 2
-  [7449423635] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Blox%20Fruit.lua", -- Blox Fruit Sea 3
-  [3623096087] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Muscle%20Legends.lua", -- Muscle Legends
-  [8737899170] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 1
-  [16498369169] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 2
-  [17503543197] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/PS99.lua",  -- PS99 World 3
-  [10449761463] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/The%20Strongest%20Battleground.lua",  -- The Strongest Battlegrounds
-  [18901165922] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Pet%20GO.lua", -- Pet GO
-  [16732694052] = "https://raw.githubusercontent.com/AhmadV99/Script-Games/main/Fisch.lua", -- Fisch
+  [17625359962] = "https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubRivals", -- rival
 }
 
 local Players = game:GetService("Players")
 local player = Players.LocalPlayer
 
 -- Hàm hiển thị thông báo giữa màn hình
-local function showMessage(message, duration, rainbow)
+local function showMessage(message, duration)
     local gui = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-    gui.ResetOnSpawn = false
     local textLabel = Instance.new("TextLabel", gui)
 
-    -- Tạo hình vuông nhỏ ở giữa màn hình
-    textLabel.Size = UDim2.new(0, 200, 0, 200)
-    textLabel.Position = UDim2.new(0.5, -100, 0.5, -100)  -- Căn giữa màn hình
+    textLabel.Size = UDim2.new(0.5, 0, 0.1, 0)
+    textLabel.Position = UDim2.new(0.25, 0, 0.45, 0)
     textLabel.Text = message
-    textLabel.TextSize = 20
-    textLabel5, true)
+    textLabel.TextSize = 30
+    textLabel.BackgroundTransparency = 0.5
+    textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    textLabel.TextStrokeTransparency = 0.5
+
+    wait(duration)
+    gui:Destroy()
+end
+
+if not scriptEnabled then
+    -- Nếu script bị tắt, hiển thị thông báo và kick sau 9 giây
+    showMessage("Script off / Script không chạy", 9)
+    player:Kick("dms sonbui to turn on / kêu sonbui để bật script")
+else
+    local placeId = game.PlaceId
+    if Games[placeId] then
+        -- Hiển thị thông báo khi script chạy và sau đó chạy script
+        showMessage("script khangbells run now", 7)
         loadstring(game:HttpGet(Games[placeId]))()
     else
         -- Hiển thị thông báo nếu game không được hỗ trợ
-        showMessage("This game not support\Game này không hỗ trợ", , false)
+        showMessage("This game not support / Game này không hỗ trợ", 5)
     end
 end
 
