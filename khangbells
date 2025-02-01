@@ -27,40 +27,7 @@ local function showMessage(message, duration, rainbow)
     textLabel.Position = UDim2.new(0.5, -100, 0.5, -100)  -- Căn giữa màn hình
     textLabel.Text = message
     textLabel.TextSize = 20
-    textLabel.BackgroundTransparency = 0.3
-    textLabel.BackgroundColor3 = Color3.fromRGB(0, 0, 0)  -- Màu nền đen mặc định
-    textLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.TextStrokeTransparency = 0.3
-    textLabel.TextWrapped = true
-    textLabel.BorderSizePixel = 2
-    textLabel.BorderColor3 = Color3.fromRGB(255, 255, 255)
-    textLabel.ClipsDescendants = true
-
-    -- Nếu hiệu ứng cầu vồng được bật
-    if rainbow then
-        spawn(function()
-            local hue = 0
-            while gui and gui.Parent do
-                textLabel.TextColor3 = Color3.fromHSV(hue, 1, 1)
-                hue = (hue + 0.01) % 1
-                wait(0.1)
-            end
-        end)
-    end
-
-    wait(duration)
-    gui:Destroy()
-end
-
-if not scriptEnabled then
-    -- Nếu script bị tắt, hiển thị thông báo và kick sau 9 giây
-    showMessage("Script off\nScript không chạy", 9, false)
-    player:Kick("dms sonbui to turn on / kêu sonbui để bật script")
-else
-    local placeId = game.PlaceId
-    if Games[placeId] then
-        -- Hiển thị thông báo khi script chạy với hiệu ứng cầu vồng
-        showMessage("script khangbells run now", 7, true)
+    textLabel5, true)
         loadstring(game:HttpGet(Games[placeId]))()
     else
         -- Hiển thị thông báo nếu game không được hỗ trợ
