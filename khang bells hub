@@ -1,91 +1,429 @@
--- Tạo ScreenGui
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-
--- Tạo Frame (Menu chính)
-local mainFrame = Instance.new("Frame")
-mainFrame.Size = UDim2.new(0.3, 0, 0.5, 0) -- Kích thước menu
-mainFrame.Position = UDim2.new(0.35, 0, 0.25, 0) -- Vị trí menu
-mainFrame.BackgroundColor3 = Color3.new(0.1, 0.1, 0.1) -- Màu nền tối
-mainFrame.BorderSizePixel = 0 -- Ẩn viền
-mainFrame.Visible = true -- Hiển thị menu ban đầu
-mainFrame.Parent = screenGui
-
--- Tạo TextLabel (Tiêu đề menu)
-local titleLabel = Instance.new("TextLabel")
-titleLabel.Size = UDim2.new(1, 0, 0.1, 0) -- Kích thước tiêu đề
-titleLabel.Position = UDim2.new(0, 0, 0, 0) -- Vị trí tiêu đề
-titleLabel.Text = "Thao Hub | Blue Lock Rivals By Nguyen Thai Bao" -- Nội dung tiêu đề
-titleLabel.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
-titleLabel.BackgroundTransparency = 1 -- Nền trong suốt
-titleLabel.Font = Enum.Font.SourceSansBold -- Font chữ
-titleLabel.TextSize = 20 -- Kích thước chữ
-titleLabel.Parent = mainFrame
-
--- Tạo ScrollingFrame (Khung cuộn cho các nút)
-local scrollingFrame = Instance.new("ScrollingFrame")
-scrollingFrame.Size = UDim2.new(1, 0, 0.8, 0) -- Kích thước khung cuộn
-scrollingFrame.Position = UDim2.new(0, 0, 0.1, 0) -- Vị trí khung cuộn
-scrollingFrame.BackgroundTransparency = 1 -- Nền trong suốt
-scrollingFrame.ScrollBarThickness = 5 -- Độ dày thanh cuộn
-scrollingFrame.Parent = mainFrame
-
--- Tạo UIListLayout (Sắp xếp các nút theo chiều dọc)
-local uiListLayout = Instance.new("UIListLayout")
-uiListLayout.Padding = UDim.new(0, 5) -- Khoảng cách giữa các nút
-uiListLayout.Parent = scrollingFrame
-
--- Danh sách các nút và chức năng tương ứng
-local buttons = {
-    { Name = "Inf Stamina", Function = function() print("Inf Stamina activated!") end },
-    { Name = "Lock Ball", Function = function() print("Lock Ball activated!") end },
-    { Name = "Teleport Ball", Function = function() print("Teleport Ball activated!") end },
-    { Name = "Auto Goal", Function = function() print("Auto Goal activated!") end },
-    { Name = "Auto Awakening", Function = function() print("Auto Awakening activated!") end },
-    { Name = "Function 6", Function = function() print("Function 6 activated!") end },
-    { Name = "Function 7", Function = function() print("Function 7 activated!") end },
-    { Name = "Function 8", Function = function() print("Function 8 activated!") end },
-    { Name = "Function 9", Function = function() print("Function 9 activated!") end },
-    { Name = "Function 10", Function = function() print("Function 10 activated!") end }
-}
-
--- Tạo các nút
-for _, buttonInfo in pairs(buttons) do
-    local button = Instance.new("TextButton")
-    button.Size = UDim2.new(0.9, 0, 0, 40) -- Kích thước nút (chiều cao cố định)
-    button.Position = UDim2.new(0.05, 0, 0, 0) -- Vị trí nút
-    button.Text = buttonInfo.Name -- Tên nút
-    button.TextColor3 = Color3.new(1, 1, 1) -- Màu chữ trắng
-    button.BackgroundColor3 = Color3.new(0.2, 0.2, 0.2) -- Màu nền nút
-    button.Font = Enum.Font.SourceSans -- Font chữ
-    button.TextSize = 18 -- Kích thước chữ
-    button.Parent = scrollingFrame
-
-    -- Kết nối sự kiện nhấp vào nút
-    button.MouseButton1Click:Connect(buttonInfo.Function)
-end
-
--- Cập nhật kích thước ScrollingFrame để chứa tất cả các nút
-uiListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-    scrollingFrame.CanvasSize = UDim2.new(0, 0, 0, uiListLayout.AbsoluteContentSize.Y)
+local success, Rayfield = pcall(function()
+    return loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
 end)
 
--- Tạo ImageButton (Logo)
-local logoButton = Instance.new("ImageButton")
-logoButton.Size = UDim2.new(0.1, 0, 0.1, 0) -- Kích thước logo
-logoButton.Position = UDim2.new(0.45, 0, 0.05, 0) -- Vị trí logo
-logoButton.BackgroundTransparency = 1 -- Nền trong suốt
-logoButton.Image = "rbxassetid://99338429415881" -- Sử dụng Asset ID của bạn
-logoButton.Parent = screenGui
-
--- Biến để kiểm tra trạng thái menu
-local isMenuVisible = true
-
--- Hàm ẩn/hiện menu
-local function toggleMenu()
-    isMenuVisible = not isMenuVisible
-    mainFrame.Visible = isMenuVisible
+if not success or not Rayfield then
+    warn("Failed to load Rayfield UI Library!")
+    return
 end
 
--- Kết nối sự kiện nhấp vào logo
-logoButton.MouseButton1Click:Connect(toggleMenu)
+-- Create the main window
+local Window = Rayfield:CreateWindow({
+   Name = "Khangbells Hub | Dead Rails",
+   Icon = 0, -- Icon in Topbar. Can use Lucide Icons (string) or Roblox Image (number). 0 to use no icon (default).
+   LoadingTitle = "Wait for load",
+   LoadingSubtitle = "by caothai",
+   Theme = "Default", -- Check https://docs.sirius.menu/rayfield/configuration/themes
+
+   DisableRayfieldPrompts = false,
+   DisableBuildWarnings = false, -- Prevents Rayfield from warning when the script has a version mismatch with the interface
+
+   ConfigurationSaving = {
+      Enabled = true,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "khangbells Hub"
+   },
+
+   Discord = {
+      Enabled = true, -- Prompt the user to join your Discord server if their executor supports it
+      Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ ABCD would be ABCD
+      RememberJoins = false -- Set this to false to make them join the discord every time they load it up
+   },
+
+   KeySystem = true, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "khangbells",
+      Subtitle = "khangbells Hub",
+      Note = "key is nigga", -- Use this to tell the user how to get a key
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = true, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"https://pastebin.com/raw/QF7UAjwR"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+print("Window created successfully!")
+
+-- Aimbot Script
+local RunService = game:GetService("RunService")
+local Cam = workspace.CurrentCamera
+local Player = game:GetService("Players").LocalPlayer
+
+local validNPCs = {}
+local raycastParams = RaycastParams.new()
+raycastParams.FilterType = Enum.RaycastFilterType.Blacklist
+
+local function isNPC(obj)
+    return obj:IsA("Model") 
+        and obj:FindFirstChild("Humanoid")
+        and obj.Humanoid.Health > 0
+        and obj:FindFirstChild("Head")
+        and obj:FindFirstChild("HumanoidRootPart")
+        and not game:GetService("Players"):GetPlayerFromCharacter(obj)
+end
+
+local function updateNPCs()
+    local tempTable = {}
+    for _, obj in ipairs(workspace:GetDescendants()) do
+        if isNPC(obj) then
+            tempTable[obj] = true
+        end
+    end
+    for i = #validNPCs, 1, -1 do
+        if not tempTable[validNPCs[i]] then
+            table.remove(validNPCs, i)
+        end
+    end
+    for obj in pairs(tempTable) do
+        if not table.find(validNPCs, obj) then
+            table.insert(validNPCs, obj)
+        end
+    end
+end
+
+local function handleDescendant(descendant)
+    if isNPC(descendant) then
+        table.insert(validNPCs, descendant)
+        local humanoid = descendant:WaitForChild("Humanoid")
+        humanoid.Destroying:Connect(function()
+            for i = #validNPCs, 1, -1 do
+                if validNPCs[i] == descendant then
+                    table.remove(validNPCs, i)
+                    break
+                end
+            end
+        end)
+    end
+end
+
+workspace.DescendantAdded:Connect(handleDescendant)
+
+local function predictPos(target)
+    local rootPart = target:FindFirstChild("HumanoidRootPart")
+    local head = target:FindFirstChild("Head")
+    if not rootPart or not head then
+        return head and head.Position or rootPart and rootPart.Position
+    end
+    local velocity = rootPart.Velocity
+    local predictionTime = 0.02
+    local basePosition = rootPart.Position + velocity * predictionTime
+    local headOffset = head.Position - rootPart.Position
+    return basePosition + headOffset
+end
+
+local function getTarget()
+    local nearest = nil
+    local minDistance = math.huge
+    local viewportCenter = Cam.ViewportSize / 2
+    raycastParams.FilterDescendantsInstances = {Player.Character}
+    for _, npc in ipairs(validNPCs) do
+        local predictedPos = predictPos(npc)
+        local screenPos, visible = Cam:WorldToViewportPoint(predictedPos)
+        if visible and screenPos.Z > 0 then
+            local ray = workspace:Raycast(
+                Cam.CFrame.Position,
+                (predictedPos - Cam.CFrame.Position).Unit * 1000,
+                raycastParams
+            )
+            if ray and ray.Instance:IsDescendantOf(npc) then
+                local distance = (Vector2.new(screenPos.X, screenPos.Y) - viewportCenter).Magnitude
+                if distance < minDistance then
+                    minDistance = distance
+                    nearest = npc
+                end
+            end
+        end
+    end
+    return nearest
+end
+
+local function aim(targetPosition)
+    local currentCF = Cam.CFrame
+    local targetDirection = (targetPosition - currentCF.Position).Unit
+    local smoothFactor = 0.581
+    local newLookVector = currentCF.LookVector:Lerp(targetDirection, smoothFactor)
+    Cam.CFrame = CFrame.new(currentCF.Position, currentCF.Position + newLookVector)
+end
+
+local heartbeat = RunService.Heartbeat
+local lastUpdate = 0
+local UPDATE_INTERVAL = 0.4
+
+local aimbotEnabled = false
+
+heartbeat:Connect(function(dt)
+    lastUpdate = lastUpdate + dt
+    if lastUpdate >= UPDATE_INTERVAL then
+        updateNPCs()
+        lastUpdate = 0
+    end
+    if aimbotEnabled then
+        local target = getTarget()
+        if target then
+            local predictedPosition = predictPos(target)
+            aim(predictedPosition)
+        end
+    end
+end)
+
+-- npc remove
+workspace.DescendantRemoving:Connect(function(descendant)
+    if isNPC(descendant) then
+        for i = #validNPCs, 1, -1 do
+            if validNPCs[i] == descendant then
+                table.remove(validNPCs, i)
+                break
+            end
+        end
+    end
+end)
+
+-- Create Aimbot Tab
+local AimbotTab = Window:CreateTab("Aimbot", 4483362458) -- Replace with your desired icon ID
+
+-- Aimbot Toggle
+local aimbotToggle = AimbotTab:CreateToggle({
+    Name = "Enable Aimbot",
+    CurrentValue = false,
+    Flag = "AimbotToggle",
+    Callback = function(Value)
+        aimbotEnabled = Value
+    end
+})
+
+-- Existing Tabs and Functionality
+local Tab = Window:CreateTab("Brings", 4483362458) 
+
+local function GetItemNames()
+    local items = {}
+    local runtimeItems = workspace:FindFirstChild("RuntimeItems")
+    if runtimeItems then
+        for _, item in ipairs(runtimeItems:GetDescendants()) do
+            if item:IsA("Model") then
+                table.insert(items, item.Name)
+            end
+        end
+    else
+        warn("RuntimeItems folder not found!")
+    end
+    return items
+end
+
+local Dropdown = Tab:CreateDropdown({
+   Name = "Choose item",
+   Options = GetItemNames(), 
+   CurrentOption = "Select an item",
+   MultipleOptions = false,
+   Flag = "ItemDropdown", 
+   Callback = function(selectedItem)
+       if type(selectedItem) == "table" then
+           selectedItem = selectedItem[1] 
+       end
+   end,
+})
+
+local RefreshButton = Tab:CreateButton({
+   Name = "Refresh Items",
+   Callback = function()
+       Dropdown:Refresh(GetItemNames())
+   end,
+})
+
+local collectButton = Tab:CreateButton({
+   Name = "Collect Selected Item",
+   Callback = function()
+       local selectedItemName = Dropdown.CurrentOption
+       if type(selectedItemName) == "table" then
+           selectedItemName = selectedItemName[1] 
+       end
+
+       if selectedItemName == "Select an item" then
+           warn("No item selected!")
+           return
+       end
+
+       local runtimeItems = workspace:FindFirstChild("RuntimeItems")
+       if not runtimeItems then
+           warn("RuntimeItems folder not found!")
+           return
+       end
+
+       local selectedItem
+       for _, item in ipairs(runtimeItems:GetDescendants()) do
+           if item:IsA("Model") and item.Name == selectedItemName then
+               selectedItem = item
+               break
+           end
+       end
+
+       if not selectedItem then
+           warn("Item not found in RuntimeItems:", selectedItemName)
+           return
+       end
+
+       local Players = game:GetService("Players")
+       local LocalPlayer = Players.LocalPlayer
+       if not LocalPlayer then
+           warn("LocalPlayer not found!")
+           return
+       end
+
+       local Character = LocalPlayer.Character or LocalPlayer.CharacterAdded:Wait()
+       local HumanoidRootPart = Character:WaitForChild("HumanoidRootPart")
+
+       if not selectedItem.PrimaryPart then
+           warn(selectedItem.Name .. " has no PrimaryPart and cannot be moved.")
+           return
+       end
+
+       selectedItem:SetPrimaryPartCFrame(HumanoidRootPart.CFrame + Vector3.new(0, 1, 0))
+       print("Collected:", selectedItem.Name)
+   end,
+})
+
+local collectAllButton = Tab:CreateButton({
+   Name = "Collect All Items",
+   Callback = function()
+       local runtimeItems = workspace:FindFirstChild("RuntimeItems")
+       if not runtimeItems then
+           warn("RuntimeItems folder not found!")
+           return
+       end
+
+       local ps = game:GetService("Players").LocalPlayer
+       local ch = ps.Character or ps.CharacterAdded:Wait()
+       local HumanoidRootPart = ch:WaitForChild("HumanoidRootPart")
+
+       for _, item in ipairs(runtimeItems:GetDescendants()) do
+           if item:IsA("Model") then
+               if item.PrimaryPart then
+                   local offset = HumanoidRootPart.CFrame.LookVector * 5
+                   item:SetPrimaryPartCFrame(HumanoidRootPart.CFrame + offset)
+               else
+                   warn(item.Name .. " has no PrimaryPart .")
+               end
+           end
+       end 
+   end,
+})
+
+local EspTab = Window:CreateTab("ESP", 4483362458)
+
+local ESPHandles = {}
+local ESPEnabled = false
+
+local function CreateESP(object, color)
+    if not object or not object.PrimaryPart then return end
+
+    local highlight = Instance.new("Highlight")
+    highlight.Name = "ESP_Highlight"
+    highlight.Adornee = object
+    highlight.FillColor = color
+    highlight.OutlineColor = color
+    highlight.Parent = object
+
+    local billboard = Instance.new("BillboardGui")
+    billboard.Name = "ESP_Billboard"
+    billboard.Adornee = object.PrimaryPart
+    billboard.Size = UDim2.new(0, 200, 0, 50)
+    billboard.StudsOffset = Vector3.new(0, 5, 0)
+    billboard.AlwaysOnTop = true
+    billboard.Parent = object
+
+    local textLabel = Instance.new("TextLabel")
+    textLabel.Text = object.Name
+    textLabel.Size = UDim2.new(1, 0, 1, 0)
+    textLabel.TextColor3 = color
+    textLabel.BackgroundTransparency = 1
+    textLabel.TextSize = 7
+    textLabel.Parent = billboard
+
+    ESPHandles[object] = {Highlight = highlight, Billboard = billboard}
+end
+
+local function ClearESP()
+    for obj, handles in pairs(ESPHandles) do
+        if handles.Highlight then handles.Highlight:Destroy() end
+        if handles.Billboard then handles.Billboard:Destroy() end
+    end
+    ESPHandles = {}
+end
+
+local function UpdateESP()
+    ClearESP()
+
+    -- ESP for Items 
+    local runtimeItems = workspace:FindFirstChild("RuntimeItems")
+    if runtimeItems then
+        for _, item in ipairs(runtimeItems:GetDescendants()) do
+            if item:IsA("Model") then
+                CreateESP(item, Color3.new(1, 0, 0)) 
+            end
+        end
+    end
+
+    -- ESP mobs
+    local baseplates = workspace:FindFirstChild("Baseplates")
+    if baseplates and #baseplates:GetChildren() >= 2 then
+        local secondBaseplate = baseplates:GetChildren()[2]
+        local centerBaseplate = secondBaseplate and secondBaseplate:FindFirstChild("CenterBaseplate")
+        local animals = centerBaseplate and centerBaseplate:FindFirstChild("Animals")
+        if animals then
+            for _, animal in ipairs(animals:GetDescendants()) do
+                if animal:IsA("Model") then
+                    CreateESP(animal, Color3.new(1, 0, 1)) -- Purple for Animals
+                end
+            end
+        end
+    end
+
+    local nightEnemies = workspace:FindFirstChild("NightEnemies")
+    if nightEnemies then
+        for _, enemy in ipairs(nightEnemies:GetDescendants()) do
+            if enemy:IsA("Model") then
+                CreateESP(enemy, Color3.new(0, 0, 1)) -- Blue for Night Enemies
+            end
+        end
+    end
+
+    local destroyedHouse = workspace:FindFirstChild("RandomBuildings") and workspace.RandomBuildings:FindFirstChild("DestroyedHouse")
+    local zombiePart = destroyedHouse and destroyedHouse:FindFirstChild("StandaloneZombiePart")
+    local zombies = zombiePart and zombiePart:FindFirstChild("Zombies")
+    if zombies then
+        for _, zombie in ipairs(zombies:GetChildren()) do
+            if zombie:IsA("Model") then
+                CreateESP(zombie, Color3.new(0, 1, 0)) -- Green for Zombies
+            end
+        end
+    end
+end
+
+local function AutoUpdateESP()
+    while ESPEnabled do
+        UpdateESP()
+        wait() 
+    end
+end
+
+local espToggle = EspTab:CreateToggle({
+    Name = "ESP Items and Mobs",
+    CurrentValue = false,
+    Flag = "ESPAllToggle",
+    Callback = function(Value)
+        ESPEnabled = Value
+        if Value then
+            UpdateESP()
+            coroutine.wrap(AutoUpdateESP)()
+        else
+            ClearESP()
+        end
+    end
+})
+
+local RTab = Window:CreateTab("Report Bugs", 4483362458) 
+
+local DButton = RTab:CreateButton({
+   Name = "Discord: caothai",
+   Callback = function()
+   end,
+})
