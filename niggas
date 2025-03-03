@@ -1,0 +1,10 @@
+local condition = true  -- Set this condition to true or false based on your needs
+
+if condition then
+    -- If the condition is true, run the script
+    getgenv().Key = "sxionax_0Yi6fOOdLul"
+loadstring(game:HttpGet("https://authadsjxk2.x10.mx/LuragMaruHub.lua"))()
+else
+    -- If the condition is false, kick the player with a message
+    game.Players.LocalPlayer:Kick("script cooked")
+end
