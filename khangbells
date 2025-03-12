@@ -1,6 +1,6 @@
     game.StarterGui:SetCore("SendNotification", {
     Title = "MTriet Hub", 
-    Text = "Wait For Update Pls....",
+    Text = "Wait For Load Pls....",
     Duration = 3
 })
 wait(.3)
